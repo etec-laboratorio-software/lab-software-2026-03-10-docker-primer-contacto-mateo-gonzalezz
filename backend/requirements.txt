@@ -1,5 +1,9 @@
-fastapi
-uvicorn
+fastapi[standard]
 sqlalchemy
 pydantic
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt<4.1
+python-multipart
 alembic
+psycopg2-binary
