@@ -1,35 +1,34 @@
-services:
-  db:
-    image: postgres:16-alpine
-    container_name: db
-    environment:
-      - POSTGRES_USER=stock_user
-      - POSTGRES_PASSWORD=stock_pass
-      - POSTGRES_DB=stock_db
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    restart: always
+version: "3.9"
 
+services:
   backend:
     build: ./backend
     container_name: backend
+    ports:
+      - "8000:8000"
     volumes:
+      # Monta el código para que los cambios se reflejen sin reconstruir
       - ./backend:/app/backend
+      # Volumen separado para la base de datos (no se sobreescribe)
+      - db_data:/app/data
     environment:
-      - SECRET_KEY=stock_secret_key_12345
-      - DATABASE_URL=postgresql://stock_user:stock_pass@db:5432/stock_db
-    depends_on:
-      - db
+      # ⚠️ IMPORTANTE: cambiá este valor por una clave secreta real antes de usar en producción
+      - SECRET_KEY=clave-super-secreta-cambiar-esto-en-produccion-1234
     restart: always
 
   frontend:
     build: ./frontend
     container_name: frontend
     ports:
-      - "80:80"
+      - "5173:5173"
+    volumes:
+      # Monta el código para hot-reload
+      - ./frontend:/app
+      # Evita que el node_modules del host pise el del contenedor
+      - /app/node_modules
     depends_on:
       - backend
     restart: always
 
 volumes:
-  pgdata:
+  db_data:

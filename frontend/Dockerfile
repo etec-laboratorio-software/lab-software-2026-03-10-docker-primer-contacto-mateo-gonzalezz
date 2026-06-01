@@ -1,14 +1,17 @@
-# Etapa 1: Build de Node
-FROM node:20 AS build
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+FROM node:20-slim
 
-# Etapa 2: Servidor Nginx
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /app
+
+# Copiar dependencias primero (mejor cache de Docker)
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+# Copiar todo el código del frontend
+COPY . .
+
+# Puerto Vite
+EXPOSE 5173
+
+# Dev server escuchando en todas las interfaces (necesario en Docker)
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

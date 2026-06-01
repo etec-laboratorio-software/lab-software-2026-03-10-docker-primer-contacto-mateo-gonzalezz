@@ -13,8 +13,7 @@ class Proveedor(Base):
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, unique=True, index=True)
 
-    # 🔹 CORREGIDO: Especificar la ruta completa del módulo
-    productos = relationship("backend.models.Producto", back_populates="proveedor")
+    productos = relationship("Producto", back_populates="proveedor")
 
 
 class Producto(Base):
@@ -29,9 +28,8 @@ class Producto(Base):
     stock_actual = Column(Integer, default=0)
     proveedor_id = Column(Integer, ForeignKey("proveedores.id"), nullable=True)
 
-    # 🔹 CORREGIDO: Especificar la ruta completa del módulo
-    proveedor = relationship("backend.models.Proveedor", back_populates="productos")
-    movimientos = relationship("backend.models.MovimientoDeStock", back_populates="producto")
+    proveedor = relationship("Proveedor", back_populates="productos")
+    movimientos = relationship("MovimientoDeStock", back_populates="producto")
 
 
 class MovimientoDeStock(Base):
@@ -42,12 +40,9 @@ class MovimientoDeStock(Base):
     tipo = Column(Enum(TipoMovimiento))
     cantidad = Column(Integer)
 
-    # 🔹 CORREGIDO: Especificar la ruta completa del módulo
-    producto = relationship("backend.models.Producto", back_populates="movimientos")
+    producto = relationship("Producto", back_populates="movimientos")
 
-# ==================================
-# Modelo de Usuario (Añadido en la Issue 5.1)
-# ==================================
+
 class User(Base):
     __tablename__ = "users"
 

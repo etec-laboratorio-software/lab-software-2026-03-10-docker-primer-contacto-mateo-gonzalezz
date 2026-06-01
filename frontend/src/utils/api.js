@@ -1,5 +1,5 @@
 // src/utils/api.js
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const API_BASE_URL = 'http://192.168.46.11:8000';
 
 // Función helper para hacer peticiones autenticadas
 export const fetchWithAuth = async (url, options = {}) => {
