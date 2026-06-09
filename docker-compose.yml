@@ -4,10 +4,14 @@ services:
   backend:
     build: ./backend
     container_name: backend
-    ports:
-      - "8000:8000"
     volumes:
-      - ./backend:/app
+      # Monta el código para que los cambios se reflejen sin reconstruir
+      - ./backend:/app/backend
+      # Volumen separado para la base de datos (no se sobreescribe)
+      - db_data:/app/data
+    environment:
+      # ⚠️ IMPORTANTE: cambiá este valor por una clave secreta real antes de usar en producción
+      - SECRET_KEY=clave-super-secreta-cambiar-esto-en-produccion-1234
     restart: always
 
   frontend:
@@ -15,6 +19,14 @@ services:
     container_name: frontend
     ports:
       - "5173:5173"
+    volumes:
+      # Monta el código para hot-reload
+      - ./frontend:/app
+      # Evita que el node_modules del host pise el del contenedor
+      - /app/node_modules
     depends_on:
       - backend
     restart: always
+
+volumes:
+  db_data:

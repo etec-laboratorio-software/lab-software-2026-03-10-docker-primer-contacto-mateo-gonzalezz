@@ -1,12 +1,14 @@
-# backend/database.py
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./products.db"
+# En Docker, la DB se guarda en /app/data/ (volumen persistente)
+# Fuera de Docker (desarrollo local), se guarda en ./products.db
+DB_PATH = os.environ.get("DATABASE_URL", "sqlite:///./products.db")
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    DB_PATH, connect_args={"check_same_thread": False}
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
