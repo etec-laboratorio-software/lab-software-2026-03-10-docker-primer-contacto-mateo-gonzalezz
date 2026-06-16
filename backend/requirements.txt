@@ -6,4 +6,4 @@ alembic
 python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
-bcrypt
+bcrypt==3.2.2

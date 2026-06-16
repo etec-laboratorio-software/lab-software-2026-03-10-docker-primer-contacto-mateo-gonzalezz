@@ -1,5 +1,5 @@
 // src/utils/api.js
-const API_BASE_URL = 'http://192.168.46.11:8000';
+const API_BASE_URL = '';
 
 // Función helper para hacer peticiones autenticadas
 export const fetchWithAuth = async (url, options = {}) => {

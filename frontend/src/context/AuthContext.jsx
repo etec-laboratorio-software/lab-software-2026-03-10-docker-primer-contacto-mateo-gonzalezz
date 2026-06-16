@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       formData.append('username', username);
       formData.append('password', password);
 
-      const response = await fetch('http://192.168.46.11:8000/api/auth/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         body: formData,
       });
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, password) => {
     try {
-      const response = await fetch('http://localhost:8000/api/auth/register', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),

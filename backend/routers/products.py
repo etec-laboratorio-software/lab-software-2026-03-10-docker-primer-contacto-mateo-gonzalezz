@@ -10,7 +10,7 @@ router = APIRouter(prefix="/api/products", tags=["products"])
 # ==================================
 # GET /api/products (Protegido)
 # ==================================
-@router.get("/", response_model=List[schemas.Producto])
+@router.get("", response_model=List[schemas.Producto])
 def get_products(
     db: Session = Depends(database.get_db),
     current_user: schemas.User = Depends(auth.get_current_user)  # 🔒 Protegido
@@ -21,7 +21,7 @@ def get_products(
 # ==================================
 # POST /api/products (Protegido)
 # ==================================
-@router.post("/", response_model=schemas.Producto)
+@router.post("", response_model=schemas.Producto)
 def create_product(
     producto: schemas.ProductoCreate,
     db: Session = Depends(database.get_db),
