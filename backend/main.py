@@ -11,7 +11,7 @@ from .routers import products, auth as auth_router
 # 🔹 Crear las tablas (AHORA INCLUYE 'users')
 models.Base.metadata.create_all(bind=database.engine)
 
-app = FastAPI()
+app = FastAPI(redirect_slashes=False)
 
 app.add_middleware(
     CORSMiddleware,
