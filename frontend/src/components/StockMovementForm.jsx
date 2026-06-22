@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext"; // 🔹 Importamos el auth
 
-const MOVEMENT_API_URL = "http://127.0.0.1:8000/api/stock/movements";
+const MOVEMENT_API_URL = "/api/stock/movements";
 
 export default function StockMovementForm({ products, onMovementSubmit }) {
   const [searchTerm, setSearchTerm] = useState("");

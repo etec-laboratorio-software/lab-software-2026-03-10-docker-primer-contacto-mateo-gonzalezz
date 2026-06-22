@@ -5,7 +5,7 @@ import ProductForm from "../components/ProductForm"; // Ajusta la ruta
 import StockMovementForm from "../components/StockMovementForm"; // Ajusta la ruta
 import { useAuth } from "../context/AuthContext"; // Importamos el auth
 
-const API_URL = "http://127.0.0.1:8000/api/products";
+const API_URL = "/api/products";
 
 // Esta será la lógica de la app principal
 export default function DashboardPage() {
