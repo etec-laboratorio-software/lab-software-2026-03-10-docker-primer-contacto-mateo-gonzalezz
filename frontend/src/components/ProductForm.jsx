@@ -37,8 +37,8 @@ export default function ProductForm({ product, onSubmit }) {
     }
 
     const url = product
-      ? `http://127.0.0.1:8000/api/products/${product.id}`
-      : "http://127.0.0.1:8000/api/products";
+      ? `/api/products/${product.id}`
+      : "/api/products";
     const method = product ? "PUT" : "POST";
 
     // Criterio 5: Enviar token
